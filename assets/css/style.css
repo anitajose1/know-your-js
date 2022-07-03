@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    flex-wrap: wrap;
+    
+}
+
+header .high-score {
+    color: green;
+    background-color: papayawhip;
+    padding: 10px;
+    text-decoration: none;
+}
+
+header h4 {
+    background-color: papayawhip;
+    padding: 10px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+.quiz-wrapper {
+    display: flex;
+    padding: 2% 10%;
+    flex-wrap: wrap;
+    width: 70%;
+}
+
+.quiz-wrapper h1 {
+    color: blueviolet;
+}
+
+.quiz-header {
+    padding: 5px 0;
+}
+
