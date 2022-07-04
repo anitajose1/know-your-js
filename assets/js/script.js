@@ -19,6 +19,7 @@ var questionBankArr = [
       { Text: "alerts", correct: true },
       { Text: "numbers", correct: false },
     ],
+    answer: "3. alerts",
   },
   {
     question: "Arrays in JavaScript can be used to store _____.",
@@ -28,6 +29,7 @@ var questionBankArr = [
       { Text: "booleans", correct: false },
       { Text: "all of the above", correct: true },
     ],
+    answer: "4. all of the above",
   },
   {
     question:
@@ -38,6 +40,7 @@ var questionBankArr = [
       { Text: "for loops", correct: false },
       { Text: "console.log", correct: true },
     ],
+    answer: "4. console.log",
   },
   {
     question:
@@ -48,6 +51,7 @@ var questionBankArr = [
       { Text: "quotes", correct: true },
       { Text: "parenthesis", correct: false },
     ],
+    answer: "3. quotes",
   },
   {
     question: "The condition in an if / else statement is enclosed with _____.",
@@ -57,6 +61,7 @@ var questionBankArr = [
       { Text: "parenthesis", correct: true },
       { Text: "square brackets", correct: false },
     ],
+    answer: "3. parenthesis",
   },
 ];
 
@@ -110,9 +115,17 @@ var startQuiz = function () {
   // replace intro para with answer option
   quizContent.replaceChild(optionBtnOne, answerOptions);
 
-  if (optionBtnThree.clicked == true) {
-    alert("Excellent! You got that right.");
-  }
+  // feedback alerts
+  quizContent.addEventListener("click", function (event) {
+    var element = event.target;
+    if (element.matches(".click-event-class1")) {
+      if (element.textContent === questionBankArr[currentQuestion].answer) {
+        alert("Excellent! You got that right.");
+      } else {
+        alert("Uh-oh! That's incorrect.");
+      }
+    }
+  });
 
   // move to next question upon selecting an answer option
   document.querySelectorAll(".click-event-class1").forEach((item) => {
@@ -125,7 +138,10 @@ var startQuiz = function () {
 };
 
 var questionTwo = function () {
-  //   alert("Excellent! You got that right.");
+  currentQuestion++;
+  // replace existing question with new question
+  quizHeader.textContent = questionBankArr[currentQuestion].question;
+  //   remove existing answer options
   optionBtnOne.remove();
   optionBtnTwo.remove();
   optionBtnThree.remove();
@@ -154,8 +170,17 @@ var questionTwo = function () {
   qsTwoOptionBtnFour.innerText = "4. all of the above";
   quizContent.appendChild(qsTwoOptionBtnFour);
 
-  //   // replace header text with quiz question
-  //   quizHeader.textContent.replace(questionBankArr[currentQuestion++].question);
+  //   feedback alerts
+  quizContent.addEventListener("click", function (event) {
+    var element = event.target;
+    if (element.matches(".click-event-class2")) {
+      if (element.textContent === questionBankArr[currentQuestion].answer) {
+        alert("Great job! That's right again.");
+      } else {
+        alert("Uh-oh! That's incorrect.");
+      }
+    }
+  });
 
   // move to next question upon selecting an answer option
   document.querySelectorAll(".click-event-class2").forEach((item) => {
@@ -164,9 +189,10 @@ var questionTwo = function () {
 };
 
 var questionThree = function () {
-  alert(" Great! That's right again.");
-  // replace header text with quiz question
-  quizHeader.textContent.replace(questionBankArr[currentQuestion++].question);
+  currentQuestion++;
+  // replace existing question with new question
+  quizHeader.textContent = questionBankArr[currentQuestion].question;
+
   qsTwoOptionBtnOne.remove();
   qsTwoOptionBtnTwo.remove();
   qsTwoOptionBtnThree.remove();
@@ -198,8 +224,17 @@ var questionThree = function () {
   qsThreeOptionBtnFour.innerText = "4. console.log";
   quizContent.appendChild(qsThreeOptionBtnFour);
 
-  // replace header text with quiz question
-  quizHeader.textContent.replace(questionBankArr[currentQuestion++].question);
+  //   feedback alerts
+  quizContent.addEventListener("click", function (event) {
+    var element = event.target;
+    if (element.matches(".click-event-class3")) {
+      if (element.textContent === questionBankArr[currentQuestion].answer) {
+        alert("Fantastic! Keep it going.");
+      } else {
+        alert("Uh-oh! That's incorrect.");
+      }
+    }
+  });
 
   // move to next question upon selecting an answer option
   document.querySelectorAll(".click-event-class3").forEach((item) => {
@@ -208,7 +243,10 @@ var questionThree = function () {
 };
 
 var questionFour = function () {
-  alert("Awesome! You're on a roll today!");
+  currentQuestion++;
+  // replace existing question with new question
+  quizHeader.textContent = questionBankArr[currentQuestion].question;
+
   qsThreeOptionBtnOne.remove();
   qsThreeOptionBtnTwo.remove();
   qsThreeOptionBtnThree.remove();
@@ -237,8 +275,17 @@ var questionFour = function () {
   qsFourOptionBtnFour.innerText = "4. parenthesis";
   quizContent.appendChild(qsFourOptionBtnFour);
 
-  // replace header text with quiz question
-  quizHeader.textContent.replace(questionBankArr[currentQuestion++].question);
+  //   feedback alerts
+  quizContent.addEventListener("click", function (event) {
+    var element = event.target;
+    if (element.matches(".click-event-class4")) {
+      if (element.textContent === questionBankArr[currentQuestion].answer) {
+        alert("Awesome! You're on a roll today!");
+      } else {
+        alert("Uh-oh! That's incorrect.");
+      }
+    }
+  });
 
   // move to next question upon selecting an answer option
   document.querySelectorAll(".click-event-class4").forEach((item) => {
@@ -247,7 +294,10 @@ var questionFour = function () {
 };
 
 var questionFive = function () {
-  alert("Well done! Don't forget to save your high score.");
+  currentQuestion++;
+  // replace existing question with new question
+  quizHeader.textContent = questionBankArr[currentQuestion].question;
+
   qsFourOptionBtnOne.remove();
   qsFourOptionBtnTwo.remove();
   qsFourOptionBtnThree.remove();
@@ -276,8 +326,17 @@ var questionFive = function () {
   qsFivesOptionBtnFour.innerText = "4. square brackets";
   quizContent.appendChild(qsFiveOptionBtnFour);
 
-  // replace header text with quiz question
-  quizHeader.textContent.replace(questionBankArr[currentQuestion++].question);
+  //   feedback alerts
+  quizContent.addEventListener("click", function (event) {
+    var element = event.target;
+    if (element.matches(".click-event-class4")) {
+      if (element.textContent === questionBankArr[currentQuestion].answer) {
+        alert("Well done! Don't forget to save your high score.");
+      } else {
+        alert("Uh-oh! That's incorrect.");
+      }
+    }
+  });
 
   // move to next question upon selecting an answer option
   document.querySelectorAll(".click-event-class5").forEach((item) => {
@@ -288,5 +347,7 @@ var questionFive = function () {
 // starts the quiz
 startQuizBtn.addEventListener("click", startQuiz);
 
-// quizHeader.textContent = quizHeader.textContent.replace(Quizler: JavaScript Quiz, questionBankArr.question[i])
-//  optionBtnOne.innerText = questionBankArr[currentQuestion].question.option;
+// var highscore = JSON.parse(localStorage.getItem("scores")) || [];
+// var newScore = { initials: userInput, score: count };
+// highScore.push(newScore);
+// localStorage.setItem("scores", JSON.stringify(highScore));
