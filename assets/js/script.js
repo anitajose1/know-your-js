@@ -1,60 +1,292 @@
 // variable references for html elements
 var mainHeader = document.querySelector("header");
-var highScore = document.querySelector(".high-score");
+var highScore = document.querySelector(".high-scores");
 var quizTimer = document.querySelector(".timer");
 var quizHeader = document.querySelector(".quiz-header");
 var quizContent = document.querySelector(".quiz-content");
-var quizFooter = document.querySelector("footer");
+var quizFooter = document.querySelector(".footer");
+var startQuizBtn = document.querySelector(".start-btn");
+var answerOptions = document.querySelector(".intro-para");
+var answerOptionsBtn = document.querySelector(".intro-para-text");
+
+// Each object in the array contains the question, answer options, and the index of the correct answer
+var questionBankArr = [
+  {
+    question: "Commonly used data types DO NOT include:",
+    option: [
+      { Text: "strings", correct: false },
+      { Text: "booleans", correct: false },
+      { Text: "alerts", correct: true },
+      { Text: "numbers", correct: false },
+    ],
+  },
+  {
+    question: "Arrays in JavaScript can be used to store _____.",
+    option: [
+      { Text: "numbers and strings", correct: false },
+      { Text: "other arrays", correct: false },
+      { Text: "booleans", correct: false },
+      { Text: "all of the above", correct: true },
+    ],
+  },
+  {
+    question:
+      "A very useful tool used during development and debugging for printing content to the debugger is:",
+    option: [
+      { Text: "JavaScript", correct: false },
+      { Text: "terminal/bash", correct: false },
+      { Text: "for loops", correct: false },
+      { Text: "console.log", correct: true },
+    ],
+  },
+  {
+    question:
+      "String values must be enclosed within _____ when being assigned to variables",
+    option: [
+      { Text: "commas", correct: false },
+      { Text: "curly brackets", correct: false },
+      { Text: "quotes", correct: true },
+      { Text: "parenthesis", correct: false },
+    ],
+  },
+  {
+    question: "The condition in an if / else statement is enclosed with _____.",
+    option: [
+      { Text: "quotes", correct: false },
+      { Text: "curly brackets", correct: false },
+      { Text: "parenthesis", correct: true },
+      { Text: "square brackets", correct: false },
+    ],
+  },
+];
 
 var timer = 75;
 var currentQuestion = 0;
 var timeout;
 
-// Each object in the arrays contains the question, answer options, and the index of the correct answer
-var QuestionBankArr = [
-  {
-    question: "Commonly used data types DO NOT include:",
-    option: ["strings", "booleans", "alerts", "numbers"],
-    answer: 2,
-  },
-  {
-    question: "Arrays in JavaScript can be used to store _____.",
-    option: [
-      "numbers and strings",
-      "other arrays",
-      "booleans",
-      "all of the above",
-    ],
-    answer: 3,
-  },
-  {
-    question:
-      "A very useful tool used during development and debugging for printing content to the debugger is:",
-    option: ["JavaScript", "terminal/bash", "for loops", "console.log"],
-    answer: 3,
-  },
-  {
-    question:
-      "String values must be enclosed within _____ when being assigned to variables",
-    option: ["commas", "curly brackets", "quotes", "parenthesis"],
-    answer: 2,
-  },
-  {
-    question: "The condition in an if / else statement is enclosed with _____.",
-    option: ["quotes", "curly brackets", "parenthesis", "square brackets"],
-    answer: 2,
-  },
-];
-
 // timer function
-var timerCountdown = function () {
+var countDownTimer = function () {
   if (timer > 0) {
     timer--;
     quizTimer.textContent = timer;
-    timeout = setTimeout(timerCountdown, 1000);
-    console.log(timer);
+    timeout = setTimeout(countDownTimer, 1000);
   } else {
     alert("You ran out of time!");
     clearTimeout(timeout);
   }
 };
+
+// function to start quiz
+var startQuiz = function () {
+  //   hide start quiz button
+  startQuizBtn.classList.add("hide");
+  //   create answer option button 1
+  optionBtnOne = document.createElement("button");
+  optionBtnOne.classList.add("qsOneOptionOneBtn", "click-event-class1");
+  optionBtnOne.innerText = "1. strings";
+  quizContent.appendChild(optionBtnOne);
+  //   create answer option button 2
+  optionBtnTwo = document.createElement("button");
+  optionBtnTwo.classList.add("qsOneOptionTwoBtn", "click-event-class1");
+  optionBtnTwo.innerText = "2. booleans";
+  quizContent.appendChild(optionBtnTwo);
+  //   create answer option button 3
+  optionBtnThree = document.createElement("button");
+  optionBtnThree.classList.add("qsOneOptionThreeBtn", "click-event-class1");
+  optionBtnThree.innerText = "3. alerts";
+  quizContent.appendChild(optionBtnThree);
+  //   create answer option button 4
+  optionBtnFour = document.createElement("button");
+  optionBtnFour.classList.add("qsOneOptionFourBtn", "click-event-class1");
+  optionBtnFour.innerText = "4. numbers";
+  quizContent.appendChild(optionBtnFour);
+
+  // replace header text with quiz question
+  quizHeader.textContent = quizHeader.textContent.replace(
+    "Quizler: JavaScript Quiz",
+    questionBankArr[currentQuestion].question
+  );
+
+  // replace intro para with answer option
+  quizContent.replaceChild(optionBtnOne, answerOptions);
+
+  if (optionBtnThree.clicked == true) {
+    alert("Excellent! You got that right.");
+  }
+
+  // move to next question upon selecting an answer option
+  document.querySelectorAll(".click-event-class1").forEach((item) => {
+    item.addEventListener("click", questionTwo);
+  });
+
+  optionBtnThree.addEventListener("click", alert);
+
+  countDownTimer();
+};
+
+var questionTwo = function () {
+  //   alert("Excellent! You got that right.");
+  optionBtnOne.remove();
+  optionBtnTwo.remove();
+  optionBtnThree.remove();
+  optionBtnFour.remove();
+  //   create answer option button 1
+  qsTwoOptionBtnOne = document.createElement("button");
+  qsTwoOptionBtnOne.classList.add("qsOneOptionOneBtn", "click-event-class2");
+  qsTwoOptionBtnOne.innerText = "1. numbers and strings";
+  quizContent.appendChild(qsTwoOptionBtnOne);
+  //   create answer option button 2
+  qsTwoOptionBtnTwo = document.createElement("button");
+  qsTwoOptionBtnTwo.classList.add("qsOneOptionTwoBtn", "click-event-class2");
+  qsTwoOptionBtnTwo.innerText = "2. other arrays";
+  quizContent.appendChild(qsTwoOptionBtnTwo);
+  //   create answer option button 3
+  qsTwoOptionBtnThree = document.createElement("button");
+  qsTwoOptionBtnThree.classList.add(
+    "qsOneOptionThreeBtn",
+    "click-event-class2"
+  );
+  qsTwoOptionBtnThree.innerText = "3. booleans";
+  quizContent.appendChild(qsTwoOptionBtnThree);
+  //   create answer option button 4
+  qsTwoOptionBtnFour = document.createElement("button");
+  qsTwoOptionBtnFour.classList.add("qsOneOptionFourBtn", "click-event-class2");
+  qsTwoOptionBtnFour.innerText = "4. all of the above";
+  quizContent.appendChild(qsTwoOptionBtnFour);
+
+  //   // replace header text with quiz question
+  //   quizHeader.textContent.replace(questionBankArr[currentQuestion++].question);
+
+  // move to next question upon selecting an answer option
+  document.querySelectorAll(".click-event-class2").forEach((item) => {
+    item.addEventListener("click", questionThree);
+  });
+};
+
+var questionThree = function () {
+  alert(" Great! That's right again.");
+  // replace header text with quiz question
+  quizHeader.textContent.replace(questionBankArr[currentQuestion++].question);
+  qsTwoOptionBtnOne.remove();
+  qsTwoOptionBtnTwo.remove();
+  qsTwoOptionBtnThree.remove();
+  qsTwoOptionBtnFour.remove();
+  //   create answer option button 1
+  qsThreeOptionBtnOne = document.createElement("button");
+  qsThreeOptionBtnOne.classList.add("qsOneOptionOneBtn", "click-event-class3");
+  qsThreeOptionBtnOne.innerText = "1. JavaScript";
+  quizContent.appendChild(qsThreeOptionBtnOne);
+  //   create answer option button 2
+  qsThreeOptionBtnTwo = document.createElement("button");
+  qsThreeOptionBtnTwo.classList.add("qsOneOptionTwoBtn", "click-event-class3");
+  qsThreeOptionBtnTwo.innerText = "2. terminal/bash";
+  quizContent.appendChild(qsThreeOptionBtnTwo);
+  //   create answer option button 3
+  qsThreeOptionBtnThree = document.createElement("button");
+  qsThreeOptionBtnThree.classList.add(
+    "qsOneOptionThreeBtn",
+    "click-event-class3"
+  );
+  qsThreeOptionBtnThree.innerText = "3. for loops";
+  quizContent.appendChild(qsThreeOptionBtnThree);
+  //   create answer option button 4
+  qsThreeOptionBtnFour = document.createElement("button");
+  qsThreeOptionBtnFour.classList.add(
+    "qsOneOptionFourBtn",
+    "click-event-class3"
+  );
+  qsThreeOptionBtnFour.innerText = "4. console.log";
+  quizContent.appendChild(qsThreeOptionBtnFour);
+
+  // replace header text with quiz question
+  quizHeader.textContent.replace(questionBankArr[currentQuestion++].question);
+
+  // move to next question upon selecting an answer option
+  document.querySelectorAll(".click-event-class3").forEach((item) => {
+    item.addEventListener("click", questionFour);
+  });
+};
+
+var questionFour = function () {
+  alert("Awesome! You're on a roll today!");
+  qsThreeOptionBtnOne.remove();
+  qsThreeOptionBtnTwo.remove();
+  qsThreeOptionBtnThree.remove();
+  qsThreeOptionBtnFour.remove();
+  //   create answer option button 1
+  qsFourOptionBtnOne = document.createElement("button");
+  qsFourOptionBtnOne.classList.add("qsOneOptionOneBtn", "click-event-class4");
+  qsFourOptionBtnOne.innerText = "1. commas";
+  quizContent.appendChild(qsFourOptionBtnOne);
+  //   create answer option button 2
+  qsFourOptionBtnTwo = document.createElement("button");
+  qsFourOptionBtnTwo.classList.add("qsOneOptionTwoBtn", "click-event-class4");
+  qsFourOptionBtnTwo.innerText = "2. curly brackets";
+  quizContent.appendChild(qsFourOptionBtnTwo);
+  //   create answer option button 3
+  qsFourOptionBtnThree = document.createElement("button");
+  qsFourOptionBtnThree.classList.add(
+    "qsOneOptionThreeBtn",
+    "click-event-class4"
+  );
+  qsFourOptionBtnThree.innerText = "3. quotes";
+  quizContent.appendChild(qsFourOptionBtnThree);
+  //   create answer option button 4
+  qsFourOptionBtnFour = document.createElement("button");
+  qsFourOptionBtnFour.classList.add("qsOneOptionFourBtn", "click-event-class4");
+  qsFourOptionBtnFour.innerText = "4. parenthesis";
+  quizContent.appendChild(qsFourOptionBtnFour);
+
+  // replace header text with quiz question
+  quizHeader.textContent.replace(questionBankArr[currentQuestion++].question);
+
+  // move to next question upon selecting an answer option
+  document.querySelectorAll(".click-event-class4").forEach((item) => {
+    item.addEventListener("click", questionFive);
+  });
+};
+
+var questionFive = function () {
+  alert("Well done! Don't forget to save your high score.");
+  qsFourOptionBtnOne.remove();
+  qsFourOptionBtnTwo.remove();
+  qsFourOptionBtnThree.remove();
+  qsFourOptionBtnFour.remove();
+  //   create answer option button 1
+  qsFiveOptionBtnOne = document.createElement("button");
+  qsFiveOptionBtnOne.classList.add("qsOneOptionOneBtn", "click-event-class5");
+  qsFiveOptionBtnOne.innerText = "1. quotes";
+  quizContent.appendChild(qsFiveOptionBtnOne);
+  //   create answer option button 2
+  qsFiveOptionBtnTwo = document.createElement("button");
+  qsFiveOptionBtnTwo.classList.add("qsOneOptionTwoBtn", "click-event-class5");
+  qsFiveOptionBtnTwo.innerText = "2. curly brackets";
+  quizContent.appendChild(qsFiveOptionBtnTwo);
+  //   create answer option button 3
+  qsFiveOptionBtnThree = document.createElement("button");
+  qsFiveOptionBtnThree.classList.add(
+    "qsOneOptionThreeBtn",
+    "click-event-class5"
+  );
+  qsFiveOptionBtnThree.innerText = "3. parenthesis";
+  quizContent.appendChild(qsFiveOptionBtnThree);
+  //   create answer option button 4
+  qsFiveOptionBtnFour = document.createElement("button");
+  qsFiveOptionBtnFour.classList.add("qsOneOptionFourBtn", "click-event-class5");
+  qsFivesOptionBtnFour.innerText = "4. square brackets";
+  quizContent.appendChild(qsFiveOptionBtnFour);
+
+  // replace header text with quiz question
+  quizHeader.textContent.replace(questionBankArr[currentQuestion++].question);
+
+  // move to next question upon selecting an answer option
+  document.querySelectorAll(".click-event-class5").forEach((item) => {
+    item.addEventListener("click", highScore);
+  });
+};
+
+// starts the quiz
+startQuizBtn.addEventListener("click", startQuiz);
+
+// quizHeader.textContent = quizHeader.textContent.replace(Quizler: JavaScript Quiz, questionBankArr.question[i])
+//  optionBtnOne.innerText = questionBankArr[currentQuestion].question.option;

@@ -6,20 +6,24 @@
 header {
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    padding: 20px 20px 5px 20px;
     flex-wrap: wrap;
     
 }
 
-header .high-score {
+header a {
     color: green;
-    background-color: papayawhip;
     padding: 10px;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+header a:hover {
+    color: blue;
 }
 
 header h4 {
-    background-color: papayawhip;
     padding: 10px;
 }
 
@@ -32,14 +36,73 @@ main {
     display: flex;
     padding: 2% 10%;
     flex-wrap: wrap;
-    width: 70%;
+    width: 75%;
 }
 
-.quiz-wrapper h1 {
-    color: blueviolet;
+h1.quiz-header {
+    margin:  10px 0 0 0;
 }
 
-.quiz-header {
-    padding: 5px 0;
+.go-back, .clear-scores {
+    background-color: blueviolet;
+    color: white;
+    border-color: blueviolet;
+    padding: 6px 7px;
+    border: outset;
 }
 
+.clear-scores:hover {
+    background-color: darkcyan;
+    border-color: darkcyan;
+}
+
+.go-back:hover {
+    background-color: darkcyan;
+    border-color: darkcyan;
+}
+
+p {
+    font-size: large;
+}
+
+.quiz-content {
+    padding-bottom: 10px;
+    /* width: 100% */
+    display: flex;
+    flex-direction: column;
+}
+
+.start-btn {
+    background-color: blueviolet;
+    color: white;
+    border-color: blueviolet;
+    padding: 7px 10px;
+    border: outset;
+}
+
+.start-btn:hover {
+    background-color:darkcyan;
+}
+
+.qsOneOptionOneBtn, .qsOneOptionTwoBtn, .qsOneOptionThreeBtn, .qsOneOptionFourBtn {
+    margin-top: 20px;
+    text-align: left;
+    background-color: blueviolet;
+    color: white;
+    border-color: blueviolet;
+    border: outset;
+    padding: 7px 10px;
+}
+
+.qsOneOptionTwoBtn, .qsOneOptionThreeBtn, .qsOneOptionFourBtn {
+    margin-top: 15px;
+}
+
+.qsOneOptionOneBtn:hover, .qsOneOptionTwoBtn:hover, .qsOneOptionThreeBtn:hover, .qsOneOptionFourBtn:hover {
+    background-color: darkcyan;
+    border-color: darkcyan;   
+}
+
+.hide {
+    visibility: hidden;
+}
