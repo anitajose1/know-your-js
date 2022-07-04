@@ -132,8 +132,6 @@ var startQuiz = function () {
     item.addEventListener("click", questionTwo);
   });
 
-  optionBtnThree.addEventListener("click", alert);
-
   countDownTimer();
 };
 
@@ -323,13 +321,13 @@ var questionFive = function () {
   //   create answer option button 4
   qsFiveOptionBtnFour = document.createElement("button");
   qsFiveOptionBtnFour.classList.add("qsOneOptionFourBtn", "click-event-class5");
-  qsFivesOptionBtnFour.innerText = "4. square brackets";
+  qsFiveOptionBtnFour.innerText = "4. square brackets";
   quizContent.appendChild(qsFiveOptionBtnFour);
 
   //   feedback alerts
   quizContent.addEventListener("click", function (event) {
     var element = event.target;
-    if (element.matches(".click-event-class4")) {
+    if (element.matches(".click-event-class5")) {
       if (element.textContent === questionBankArr[currentQuestion].answer) {
         alert("Well done! Don't forget to save your high score.");
       } else {
@@ -347,7 +345,7 @@ var questionFive = function () {
 // starts the quiz
 startQuizBtn.addEventListener("click", startQuiz);
 
-// var highscore = JSON.parse(localStorage.getItem("scores")) || [];
+// var highScore = JSON.parse(localStorage.getItem("scores")) || [];
 // var newScore = { initials: userInput, score: count };
 // highScore.push(newScore);
 // localStorage.setItem("scores", JSON.stringify(highScore));
