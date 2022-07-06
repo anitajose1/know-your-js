@@ -82,6 +82,8 @@ var countDownTimer = function () {
   }
 };
 
+var count = 0;
+
 // function to start quiz
 var startQuiz = function () {
   //   hide start quiz button
@@ -122,6 +124,7 @@ var startQuiz = function () {
     if (element.matches(".click-event-class1")) {
       if (element.textContent === questionBankArr[currentQuestion].answer) {
         alert("Excellent! You got that right.");
+        count = count + 10;
       } else {
         alert("Uh-oh! That's incorrect.");
         timer = timer - 10;
@@ -172,6 +175,7 @@ var questionTwo = function () {
     if (element.matches(".click-event-class2")) {
       if (element.textContent === questionBankArr[currentQuestion].answer) {
         alert("Great job! You're absolutely right.");
+        count = count + 10;
       } else {
         alert("Uh-oh! That's incorrect.");
         timer = timer - 10;
@@ -223,6 +227,7 @@ var questionThree = function () {
     if (element.matches(".click-event-class3")) {
       if (element.textContent === questionBankArr[currentQuestion].answer) {
         alert("Fantastic! Keep it going.");
+        count = count + 10;
       } else {
         alert("Uh-oh! That's incorrect.");
         timer = timer - 10;
@@ -271,6 +276,7 @@ var questionFour = function () {
     if (element.matches(".click-event-class4")) {
       if (element.textContent === questionBankArr[currentQuestion].answer) {
         alert("Awesome! You're on a roll today!");
+        count = count + 10;
       } else {
         alert("Uh-oh! That's incorrect.");
         timer = timer - 10;
@@ -319,6 +325,7 @@ var questionFive = function () {
     if (element.matches(".click-event-class5")) {
       if (element.textContent === questionBankArr[currentQuestion].answer) {
         alert("Well done! Don't forget to save your high score.");
+        count++;
       } else {
         alert("Uh-oh! That's incorrect.");
         timer = timer - 10;
@@ -331,35 +338,39 @@ var questionFive = function () {
 
 var highScorePage = function () {
   // replace existing question with score page header
-  quizHeader.textContent = "All done!";
-
+  quizHeader.textContent = "All done! Your final score is " + count + ".";
+  // remove existing answer option buttons
   qsFiveOptionBtnOne.remove();
   qsFiveOptionBtnTwo.remove();
   qsFiveOptionBtnThree.remove();
   qsFiveOptionBtnFour.remove();
-
+  // create div for input field & submit button
   finalScoreTextDiv = document.createElement("div");
   finalScoreTextDiv.className = "final-score-div";
   quizContent.appendChild(finalScoreTextDiv);
-
-  finalScoreText = document.createElement("h4");
-  finalScoreText.textContent = "Your final score is " + count + ".";
-  finalScoreText.classList.add("final-score-text", "final-score-text2");
-  finalScoreTextDiv.appendChild(finalScoreText);
-
+  // initials input field
   inputField = document.createElement("input");
   inputField.classList.add("input-field", "input-field2");
   inputField.setAttribute("type", "text");
-  finalScoreText.appendChild(inputField);
+  inputField.setAttribute("id", "initials-input");
+  inputField.setAttribute("placeholder", "Add your initials here");
+  finalScoreTextDiv.appendChild(inputField);
+  // submit button
+  submitInitials = document.createElement("button");
+  submitInitials.classList.add("submit-initials", "submit-initials2");
+  submitInitials.innerText = "Submit";
+  finalScoreTextDiv.appendChild(submitInitials);
+
+  submitInitials.addEventListener("click", inputField);
+
+  userInput = document.querySelector("#initials-input").value;
+  // set & retrieve score from local storage
+  var highScore = JSON.parse(localStorage.getItem("scores")) || [];
+  var newScore = { initials: userInput, score: count };
+  highScore.push(newScore);
+  localStorage.setItem("scores", JSON.stringify(highScore));
 };
-
 userInput = "";
-count = 0;
-
-var highScore = JSON.parse(localStorage.getItem("scores")) || [];
-var newScore = { initials: userInput, score: count };
-highScore.push(newScore);
-localStorage.setItem("scores", JSON.stringify(highScore));
 
 // go back from high scores list page
 // goBackBtn.addEventListener("click", () => {

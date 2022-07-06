@@ -97,10 +97,18 @@ p {
     margin-top: 15px;
 }
 
-.qsOneOptionOneBtn:hover, .qsOneOptionTwoBtn:hover, .qsOneOptionThreeBtn:hover, .qsOneOptionFourBtn:hover {
+.qsOneOptionOneBtn:hover, .qsOneOptionTwoBtn:hover, .qsOneOptionThreeBtn:hover, .qsOneOptionFourBtn:hover, .submit-initials:hover {
     background-color: darkcyan;
     border-color: darkcyan;
     border: outset;   
+}
+
+.submit-initials {
+    background-color: blueviolet;
+    color: white;
+    border-color: blueviolet;
+    border: outset;
+    padding: 7px 10px;
 }
 
 .hide {
@@ -110,5 +118,12 @@ p {
 .final-score-div {
     display: block;
     width: 100%;
+    margin-right: 100px;
+    margin-top: 20px;
+}
+
+.input-field {
+    padding: 6px 6px 6px 6px;
+    margin-right: 7px;
 }
 

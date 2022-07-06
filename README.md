@@ -1,1 +1,1 @@
-# know-your-js
+# Quizler: JavaScript Quiz
