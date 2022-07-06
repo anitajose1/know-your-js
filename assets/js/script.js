@@ -8,26 +8,27 @@ var quizFooter = document.querySelector(".footer");
 var startQuizBtn = document.querySelector(".start-btn");
 var answerOptions = document.querySelector(".intro-para");
 var answerOptionsBtn = document.querySelector(".intro-para-text");
+var goBackBtn = document.querySelector(".go-back");
 
 // Each object in the array contains the question, answer options, and the index of the correct answer
 var questionBankArr = [
   {
     question: "Commonly used data types DO NOT include:",
     option: [
-      { Text: "strings", correct: false },
-      { Text: "booleans", correct: false },
-      { Text: "alerts", correct: true },
-      { Text: "numbers", correct: false },
+      { text: "strings", correct: false },
+      { text: "booleans", correct: false },
+      { text: "alerts", correct: true },
+      { text: "numbers", correct: false },
     ],
     answer: "3. alerts",
   },
   {
     question: "Arrays in JavaScript can be used to store _____.",
     option: [
-      { Text: "numbers and strings", correct: false },
-      { Text: "other arrays", correct: false },
-      { Text: "booleans", correct: false },
-      { Text: "all of the above", correct: true },
+      { text: "numbers and strings", correct: false },
+      { text: "other arrays", correct: false },
+      { text: "booleans", correct: false },
+      { text: "all of the above", correct: true },
     ],
     answer: "4. all of the above",
   },
@@ -35,31 +36,31 @@ var questionBankArr = [
     question:
       "A very useful tool used during development and debugging for printing content to the debugger is:",
     option: [
-      { Text: "JavaScript", correct: false },
-      { Text: "terminal/bash", correct: false },
-      { Text: "for loops", correct: false },
-      { Text: "console.log", correct: true },
+      { text: "JavaScript", correct: false },
+      { text: "terminal/bash", correct: false },
+      { text: "for loops", correct: false },
+      { text: "console.log", correct: true },
     ],
     answer: "4. console.log",
   },
   {
     question:
-      "String values must be enclosed within _____ when being assigned to variables",
+      "String values must be enclosed within _____ when being assigned to variables.",
     option: [
-      { Text: "commas", correct: false },
-      { Text: "curly brackets", correct: false },
-      { Text: "quotes", correct: true },
-      { Text: "parenthesis", correct: false },
+      { text: "commas", correct: false },
+      { text: "curly brackets", correct: false },
+      { text: "quotes", correct: true },
+      { text: "parenthesis", correct: false },
     ],
     answer: "3. quotes",
   },
   {
     question: "The condition in an if / else statement is enclosed with _____.",
     option: [
-      { Text: "quotes", correct: false },
-      { Text: "curly brackets", correct: false },
-      { Text: "parenthesis", correct: true },
-      { Text: "square brackets", correct: false },
+      { text: "quotes", correct: false },
+      { text: "curly brackets", correct: false },
+      { text: "parenthesis", correct: true },
+      { text: "square brackets", correct: false },
     ],
     answer: "3. parenthesis",
   },
@@ -123,13 +124,10 @@ var startQuiz = function () {
         alert("Excellent! You got that right.");
       } else {
         alert("Uh-oh! That's incorrect.");
+        timer = timer - 10;
       }
+      questionTwo();
     }
-  });
-
-  // move to next question upon selecting an answer option
-  document.querySelectorAll(".click-event-class1").forEach((item) => {
-    item.addEventListener("click", questionTwo);
   });
 
   countDownTimer();
@@ -173,16 +171,13 @@ var questionTwo = function () {
     var element = event.target;
     if (element.matches(".click-event-class2")) {
       if (element.textContent === questionBankArr[currentQuestion].answer) {
-        alert("Great job! That's right again.");
+        alert("Great job! You're absolutely right.");
       } else {
         alert("Uh-oh! That's incorrect.");
+        timer = timer - 10;
       }
+      questionThree();
     }
-  });
-
-  // move to next question upon selecting an answer option
-  document.querySelectorAll(".click-event-class2").forEach((item) => {
-    item.addEventListener("click", questionThree);
   });
 };
 
@@ -230,13 +225,10 @@ var questionThree = function () {
         alert("Fantastic! Keep it going.");
       } else {
         alert("Uh-oh! That's incorrect.");
+        timer = timer - 10;
       }
+      questionFour();
     }
-  });
-
-  // move to next question upon selecting an answer option
-  document.querySelectorAll(".click-event-class3").forEach((item) => {
-    item.addEventListener("click", questionFour);
   });
 };
 
@@ -281,13 +273,10 @@ var questionFour = function () {
         alert("Awesome! You're on a roll today!");
       } else {
         alert("Uh-oh! That's incorrect.");
+        timer = timer - 10;
       }
+      questionFive();
     }
-  });
-
-  // move to next question upon selecting an answer option
-  document.querySelectorAll(".click-event-class4").forEach((item) => {
-    item.addEventListener("click", questionFive);
   });
 };
 
@@ -332,20 +321,50 @@ var questionFive = function () {
         alert("Well done! Don't forget to save your high score.");
       } else {
         alert("Uh-oh! That's incorrect.");
+        timer = timer - 10;
       }
+      clearTimeout(timeout);
+      highScorePage();
     }
-  });
-
-  // move to next question upon selecting an answer option
-  document.querySelectorAll(".click-event-class5").forEach((item) => {
-    item.addEventListener("click", highScore);
   });
 };
 
+var highScorePage = function () {
+  // replace existing question with score page header
+  quizHeader.textContent = "All done!";
+
+  qsFiveOptionBtnOne.remove();
+  qsFiveOptionBtnTwo.remove();
+  qsFiveOptionBtnThree.remove();
+  qsFiveOptionBtnFour.remove();
+
+  finalScoreTextDiv = document.createElement("div");
+  finalScoreTextDiv.className = "final-score-div";
+  quizContent.appendChild(finalScoreTextDiv);
+
+  finalScoreText = document.createElement("h4");
+  finalScoreText.textContent = "Your final score is " + count + ".";
+  finalScoreText.classList.add("final-score-text", "final-score-text2");
+  finalScoreTextDiv.appendChild(finalScoreText);
+
+  inputField = document.createElement("input");
+  inputField.classList.add("input-field", "input-field2");
+  inputField.setAttribute("type", "text");
+  finalScoreText.appendChild(inputField);
+};
+
+userInput = "";
+count = 0;
+
+var highScore = JSON.parse(localStorage.getItem("scores")) || [];
+var newScore = { initials: userInput, score: count };
+highScore.push(newScore);
+localStorage.setItem("scores", JSON.stringify(highScore));
+
+// go back from high scores list page
+// goBackBtn.addEventListener("click", () => {
+//   history.back();
+// });
+
 // starts the quiz
 startQuizBtn.addEventListener("click", startQuiz);
-
-// var highScore = JSON.parse(localStorage.getItem("scores")) || [];
-// var newScore = { initials: userInput, score: count };
-// highScore.push(newScore);
-// localStorage.setItem("scores", JSON.stringify(highScore));

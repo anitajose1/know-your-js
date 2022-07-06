@@ -67,7 +67,6 @@ p {
 
 .quiz-content {
     padding-bottom: 10px;
-    /* width: 100% */
     display: flex;
     flex-direction: column;
 }
@@ -100,9 +99,16 @@ p {
 
 .qsOneOptionOneBtn:hover, .qsOneOptionTwoBtn:hover, .qsOneOptionThreeBtn:hover, .qsOneOptionFourBtn:hover {
     background-color: darkcyan;
-    border-color: darkcyan;   
+    border-color: darkcyan;
+    border: outset;   
 }
 
 .hide {
     visibility: hidden;
 }
+
+.final-score-div {
+    display: block;
+    width: 100%;
+}
+
